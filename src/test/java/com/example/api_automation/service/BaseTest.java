@@ -2,7 +2,6 @@ package com.example.api_automation.service;
 
 import com.example.api_automation.utils.SpecBuilder;
 import io.qameta.allure.Step;
-import io.restassured.RestAssured;
 import io.restassured.filter.log.RequestLoggingFilter;
 import io.restassured.filter.log.ResponseLoggingFilter;
 import io.restassured.response.Response;
@@ -45,7 +44,7 @@ public class BaseTest {
 
     @Step
     public Response postRequest(Object payload, String endpoint){
-        return given(specBuilder.requestSpecBuilder())
+        return given(specBuilder.requestSpecBuilder(null, null))
                 .filter(new RequestLoggingFilter())
                 .filter(new ResponseLoggingFilter())
                 .when()
@@ -55,7 +54,7 @@ public class BaseTest {
 
     @Step
     public Response postRequestWithQueryParam(Object payload, String endpoint, Map<String, String> queryParam){
-        return given(specBuilder.requestSpecBuilderWithQueryParam(queryParam))
+        return given(specBuilder.requestSpecBuilder(queryParam, null))
                 .filter(new RequestLoggingFilter())
                 .filter(new ResponseLoggingFilter())
                 .when()
@@ -65,7 +64,7 @@ public class BaseTest {
 
     @Step
     public Response postRequestWithAdditionalHeader(Object payload, String endpoint, Map<String, String> headers){
-        return given(specBuilder.requestSpecBuilderWithAdditionalHeader(headers))
+        return given(specBuilder.requestSpecBuilder(null, headers))
                 .filter(new RequestLoggingFilter())
                 .filter(new ResponseLoggingFilter())
                 .when()

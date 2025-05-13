@@ -14,29 +14,21 @@ public class SpecBuilder {
     @Value("${default.baseUrl}")
     private String baseUrl;
 
-    public RequestSpecification requestSpecBuilder(){
-        return new RequestSpecBuilder()
+    public RequestSpecification requestSpecBuilder(Map<String, String> queryParams, Map<String, String> headers) {
+        RequestSpecBuilder builder = new RequestSpecBuilder()
                 .setBaseUri(baseUrl)
-                .addHeader("Content-Type", "application/json")
-                .setContentType(ContentType.JSON)
-                .build();
-    }
+                .setContentType(ContentType.JSON);
 
-    public RequestSpecification requestSpecBuilderWithQueryParam(Map<String, String> queryMap){
-        return new RequestSpecBuilder()
-                .setBaseUri(baseUrl)
-                .addHeader("Content-Type", "application/json")
-                .addQueryParams(queryMap)
-                .setContentType(ContentType.JSON)
-                .build();
-    }
-
-    public RequestSpecification requestSpecBuilderWithAdditionalHeader(Map<String, String> headerList){
-        return new RequestSpecBuilder()
-                .setBaseUri(baseUrl)
-                .addHeader("Content-Type", "application/json")
-                .addHeaders(headerList)
-                .setContentType(ContentType.JSON)
-                .build();
+        if (headers != null && !headers.isEmpty()) {
+            builder.addHeaders(headers);
+        }
+        if (queryParams != null && !queryParams.isEmpty()) {
+            builder.addQueryParams(queryParams);
+        }
+        if (queryParams != null && !queryParams.isEmpty() && headers != null && !headers.isEmpty()) {
+            builder.addQueryParams(queryParams);
+            builder.addHeaders(headers);
+        }
+        return builder.build();
     }
 }
