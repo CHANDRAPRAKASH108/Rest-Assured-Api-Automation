@@ -1,0 +1,2 @@
+default:
+  baseUrl: ${BASE_URL:https://68230e33b342dce8005078cf.mockapi.io/api/v1}
