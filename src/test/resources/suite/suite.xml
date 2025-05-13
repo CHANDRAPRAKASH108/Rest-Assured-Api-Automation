@@ -3,6 +3,8 @@
 <suite name="All Test Suite">
     <test verbose="2" preserve-order="true"
           name="C:/Users/91754/Desktop/Api-Automation-RestAssured/rest-assured-api-automation/src/test/resources/suite">
-        <classes/>
+        <classes>
+            <class name="com.example.api_automation.tests.RegisterUserTest"/>
+        </classes>
     </test>
 </suite>

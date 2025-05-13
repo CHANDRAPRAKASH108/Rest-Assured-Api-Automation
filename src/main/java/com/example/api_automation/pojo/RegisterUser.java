@@ -10,12 +10,12 @@ import java.time.LocalDateTime;
 @Setter
 @NoArgsConstructor
 public class RegisterUser implements Cloneable{
-    private Integer Id;
+    private Integer id;
     private String name;
     private String username;
     private String password;
     private String email;
-    private LocalDateTime createdDate;
+    private LocalDateTime createdAt;
 
     @Override
     public RegisterUser clone() {

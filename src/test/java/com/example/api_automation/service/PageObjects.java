@@ -1,0 +1,20 @@
+package com.example.api_automation.service;
+
+import com.example.api_automation.pojo.RegisterUser;
+import com.example.api_automation.utils.APIUrlBuilder;
+import io.qameta.allure.Step;
+import io.restassured.response.Response;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import static com.example.api_automation.endpoint.EndpointConstants.REGISTER_USER_ENDPOINT;
+
+public class PageObjects extends BaseTest{
+
+    @Autowired
+    APIUrlBuilder apiUrlBuilder;
+
+    @Step("Register User")
+    public Response registerUser(RegisterUser registerUser){
+        return postRequest(registerUser, apiUrlBuilder.getUrl(REGISTER_USER_ENDPOINT));
+    }
+}
