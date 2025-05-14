@@ -1,5 +1,6 @@
 package com.example.api_automation.service;
 
+import com.example.api_automation.ApiAutomationApplication;
 import com.example.api_automation.utils.SpecBuilder;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.type.CollectionType;
@@ -9,24 +10,28 @@ import io.restassured.filter.log.RequestLoggingFilter;
 import io.restassured.filter.log.ResponseLoggingFilter;
 import io.restassured.response.Response;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.testng.Assert;
 import org.testng.TestException;
+import org.testng.annotations.BeforeClass;
 
 import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 import java.util.function.Consumer;
 
 import static com.example.api_automation.utils.Constants.JSON_DIR;
 import static io.restassured.RestAssured.given;
 
-public class BaseTest {
+@SpringBootTest(classes = ApiAutomationApplication.class)
+public class BaseTest extends AbstractTestNGSpringContextTests {
 
     private final ObjectMapper mapper = new ObjectMapper().registerModule(new JavaTimeModule());
-
 
     @Autowired
     SpecBuilder specBuilder;
@@ -48,6 +53,12 @@ public class BaseTest {
     }
 
     @Step
+    public void responseCode201(Response response) {
+        int actual = response.then().extract().statusCode();
+        Assert.assertEquals(actual, 201);
+    }
+
+    @Step
     public void responseCode4XX(Response response) {
         int actual = response.then().extract().statusCode();
         Assert.assertEquals(actual, 400);
@@ -65,30 +76,9 @@ public class BaseTest {
         Assert.assertEquals(actual, 404);
     }
 
-
     @Step
     public Response postRequest(Object payload, String endpoint) {
         return given(specBuilder.requestSpecBuilder(null, null))
-                .filter(new RequestLoggingFilter())
-                .filter(new ResponseLoggingFilter())
-                .when()
-                .body(payload)
-                .post(endpoint);
-    }
-
-    @Step
-    public Response postRequestWithQueryParam(Object payload, String endpoint, Map<String, String> queryParam) {
-        return given(specBuilder.requestSpecBuilder(queryParam, null))
-                .filter(new RequestLoggingFilter())
-                .filter(new ResponseLoggingFilter())
-                .when()
-                .body(payload)
-                .post(endpoint);
-    }
-
-    @Step
-    public Response postRequestWithAdditionalHeader(Object payload, String endpoint, Map<String, String> headers) {
-        return given(specBuilder.requestSpecBuilder(null, headers))
                 .filter(new RequestLoggingFilter())
                 .filter(new ResponseLoggingFilter())
                 .when()
