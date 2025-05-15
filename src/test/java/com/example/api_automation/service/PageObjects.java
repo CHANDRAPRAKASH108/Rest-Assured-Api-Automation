@@ -6,6 +6,8 @@ import io.qameta.allure.Step;
 import io.restassured.response.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.testng.ITestContext;
+import org.testng.annotations.BeforeSuite;
 
 import static com.example.api_automation.endpoint.EndpointConstants.REGISTER_USER_ENDPOINT;
 

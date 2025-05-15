@@ -24,5 +24,8 @@ public class RegisterUserTest extends PageObjects {
         RegisterUser registerUserObject = prepareRequestBody("registerUserPayload.json", RegisterUser.class);
         Response response = registerUser(registerUserObject);
         responseCode201(response);
+        RegisterUser registerUser = extractObjectFromResponse(response, RegisterUser.class);
+        sharedContext.setAttribute("postRegisterResponse", registerUser);
+        responseSchemaValidation(response, "registerUserSchema.json");
     }
 }
