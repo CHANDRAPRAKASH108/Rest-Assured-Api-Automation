@@ -6,7 +6,7 @@ on:
       suiteFile:
         description: 'Relative path to TestNG suite XML (e.g., regression.xml)'
         required: true
-        default: 'src/test/resources/suite/regression.xml'
+        default: 'regression.xml'
 
 jobs:
   run-suite:
