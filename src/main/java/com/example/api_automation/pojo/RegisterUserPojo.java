@@ -9,11 +9,13 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @NoArgsConstructor
-public class RegisterUser {
+public class RegisterUserPojo {
     private Integer id;
     private String name;
     private String username;
     private String password;
     private String email;
     private LocalDateTime createdAt;
+    private String postId;
+    private String updatedAt;
 }

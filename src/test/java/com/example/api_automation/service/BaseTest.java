@@ -111,6 +111,27 @@ public class BaseTest extends AbstractTestNGSpringContextTests {
     }
 
     @Step
+    public Response putRequest(Object payload, String endpoint, Map<String, String> queryParam, Map<String, String> headers) {
+        return given(specBuilder.requestSpecBuilder(queryParam, headers))
+                .filter(new RequestLoggingFilter())
+                .filter(new ResponseLoggingFilter())
+                .filter(new AllureRestAssured())
+                .when()
+                .body(payload)
+                .put(endpoint);
+    }
+
+    @Step
+    public Response deleteRequest(String endpoint, Map<String, String> queryParam, Map<String, String> headers) {
+        return given(specBuilder.requestSpecBuilder(queryParam, headers))
+                .filter(new RequestLoggingFilter())
+                .filter(new ResponseLoggingFilter())
+                .filter(new AllureRestAssured())
+                .when()
+                .delete(endpoint);
+    }
+
+    @Step
     public <T> T prepareRequestBody(String jsonFileName, Class<T> clazz) {
         String jsonPath = Paths.get("json", JSON_DIR).resolve(Paths.get(jsonFileName)).toString();
         try {

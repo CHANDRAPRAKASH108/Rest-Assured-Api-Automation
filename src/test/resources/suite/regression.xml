@@ -5,7 +5,8 @@
     <test verbose="2" preserve-order="true"
           name="C:/Users/91754/Desktop/Api-Automation-RestAssured/rest-assured-api-automation/src/test/resources/suite">
         <classes>
-            <class name="com.example.api_automation.tests.RegisterUserTest"/>
+            <class name="com.example.api_automation.tests.RegisterUserPojoTest"/>
+            <class name="com.example.api_automation.tests.AddPostTest"/>
         </classes>
     </test>
 </suite>

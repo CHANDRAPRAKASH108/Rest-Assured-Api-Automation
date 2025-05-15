@@ -45,6 +45,16 @@
           }
         ]
       },
+      "postId": {
+        "anyOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
       "username": {
         "anyOf": [
           {
@@ -52,6 +62,25 @@
           },
           {
             "type": "null"
+          }
+        ]
+      },
+      "updatedAt": {
+        "anyOf": [
+          {
+            "type": "string",
+            "format": "date-time"
+          },
+          {
+            "type": "null"
+          },
+          {
+            "type": "array",
+            "items": {
+              "type": "integer"
+            },
+            "minItems": 3,
+            "maxItems": 7
           }
         ]
       },
