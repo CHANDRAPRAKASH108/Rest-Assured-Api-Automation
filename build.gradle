@@ -53,7 +53,7 @@ test {
 	} else {
 		// Default fallback
 		useTestNG {
-			suites 'src/test/resources/suite/suite.xml'
+			suites 'src/test/resources/suite/regression.xml'
 		}
 	}
 }

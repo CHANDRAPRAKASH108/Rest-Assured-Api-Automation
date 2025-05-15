@@ -1,0 +1,38 @@
+name: Manual TestNG Suite Run with Allure Report
+
+on:
+  workflow_dispatch:
+    inputs:
+      suiteFile:
+        description: 'Relative path to TestNG suite XML (e.g., regression.xml)'
+        required: true
+        default: 'src/test/resources/suite/regression.xml'
+
+jobs:
+  run-suite:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Java
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      - name: Grant execute permission to Gradle
+        run: chmod +x gradlew
+
+      - name: Run tests with suite file
+        run: ./gradlew clean test -DsuiteXmlFile=${{ github.event.inputs.suiteFile }}
+
+      - name: Generate Allure Report
+        run: ./gradlew allureReport
+
+      - name: Upload Allure Report
+        uses: actions/upload-artifact@v3
+        with:
+          name: allure-report
+          path: build/allure-report
