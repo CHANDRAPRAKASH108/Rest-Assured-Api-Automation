@@ -4,9 +4,9 @@ on:
   workflow_dispatch:
     inputs:
       suiteFile:
-        description: 'Path to TestNG suite XML (e.g. src/test/resources/suite/regression.xml)'
+        description: 'Path to TestNG suite XML (e.g. src/test/resources/suite/test-suite.xml)'
         required: true
-        default: 'src/test/resources/suite/regression.xml'
+        default: 'src/test/resources/suite/test-suite.xml'
 
 jobs:
   run-suite:
@@ -22,7 +22,7 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
 
-      - name: Grant execute permission to Gradle
+      - name: Grant permission to Gradle
         run: chmod +x gradlew
 
       - name: Run tests with suite file
