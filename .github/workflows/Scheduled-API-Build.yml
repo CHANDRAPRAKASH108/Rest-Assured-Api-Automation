@@ -1,9 +1,8 @@
-name: Scheduled API Build with Allure Report
+name: Nightly API Build with Allure Report
 
 on:
   schedule:
-    # 11:00 PM IST = 17:30 UTC
-    - cron: '30 17 * * *'
+    - cron: '30 17 * * *'  # 11:00 PM IST = 5:30 PM UTC
 
 jobs:
   test-and-report:
@@ -19,7 +18,7 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
 
-      - name: Grant execute permission to Gradle
+      - name: Grant permission to Gradle
         run: chmod +x gradlew
 
       - name: Run Tests and Generate Allure Report
