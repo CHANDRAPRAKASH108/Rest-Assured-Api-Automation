@@ -24,3 +24,9 @@ jobs:
 
       - name: Run Tests and Generate Allure Report
         run: ./gradlew clean test allureReport
+
+      - name: Upload Allure Report
+        uses: ./.github/actions/upload-artifact
+        with:
+          name: allure-report
+          path: build/allure-report
