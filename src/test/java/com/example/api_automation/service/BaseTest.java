@@ -23,9 +23,7 @@ import org.testng.annotations.Listeners;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 import java.util.function.Consumer;
 
 import static com.example.api_automation.utils.Constants.JSON_DIR;
@@ -92,14 +90,24 @@ public class BaseTest extends AbstractTestNGSpringContextTests {
     }
 
     @Step
-    public Response postRequest(Object payload, String endpoint) {
-        return given(specBuilder.requestSpecBuilder(null, null))
+    public Response postRequest(Object payload, String endpoint, Map<String, String> queryParam, Map<String, String> headers) {
+        return given(specBuilder.requestSpecBuilder(queryParam, headers))
                 .filter(new RequestLoggingFilter())
                 .filter(new ResponseLoggingFilter())
                 .filter(new AllureRestAssured())
                 .when()
                 .body(payload)
                 .post(endpoint);
+    }
+
+    @Step
+    public Response getRequest(String endpoint, Map<String, String> queryParam, Map<String, String> headers) {
+        return given(specBuilder.requestSpecBuilder(queryParam, headers))
+                .filter(new RequestLoggingFilter())
+                .filter(new ResponseLoggingFilter())
+                .filter(new AllureRestAssured())
+                .when()
+                .get(endpoint);
     }
 
     @Step
@@ -160,12 +168,14 @@ public class BaseTest extends AbstractTestNGSpringContextTests {
     }
 
     @Step
-    public <T> T extractListOfObjectFromResponse(Response response, Class<T> clazz) {
-        String responseBody = response.getBody().toString();
-        if (responseBody == null) {
-            return null;
+    public <T> List<T> extractListOfObjectFromResponse(Response response, Class<T> clazz) {
+        try {
+            return mapper.readValue(response.getBody().asString(),
+                    mapper.getTypeFactory().constructCollectionType(List.class, clazz));
+        } catch (Exception e) {
+            e.printStackTrace();
+            return Collections.emptyList();
         }
-        return response.as(clazz);
     }
 
     @Step

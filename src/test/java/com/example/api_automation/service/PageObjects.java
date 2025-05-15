@@ -20,6 +20,11 @@ public class PageObjects extends BaseTest{
 
     @Step("Register User")
     public Response registerUser(RegisterUser registerUser){
-        return postRequest(registerUser, apiUrlBuilder.getUrl(REGISTER_USER_ENDPOINT));
+        return postRequest(registerUser, apiUrlBuilder.getUrl(REGISTER_USER_ENDPOINT), null, null);
+    }
+
+    @Step("Fetch Register User")
+    public Response fetchRegisteredUser(){
+        return getRequest(apiUrlBuilder.getUrl(REGISTER_USER_ENDPOINT), null, null);
     }
 }
