@@ -1,8 +1,8 @@
-name: API Build with Allure Report
+name: Scheduled API Build with Allure Report
 
 on:
   schedule:
-    # Runs every day at 11 PM IST (which is 17:30 UTC)
+    # 11:00 PM IST = 17:30 UTC
     - cron: '30 17 * * *'
 
 jobs:

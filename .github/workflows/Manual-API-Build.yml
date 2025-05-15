@@ -4,9 +4,9 @@ on:
   workflow_dispatch:
     inputs:
       suiteFile:
-        description: 'Relative path to TestNG suite XML (e.g., regression.xml)'
+        description: 'Path to TestNG suite XML (e.g. regression.xml)'
         required: true
-        default: 'regression.xml'
+        default: 'src/test/resources/suite/regression.xml'
 
 jobs:
   run-suite:
