@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.type.CollectionType;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import io.qameta.allure.Step;
+import io.qameta.allure.testng.AllureTestNg;
 import io.restassured.filter.log.RequestLoggingFilter;
 import io.restassured.filter.log.ResponseLoggingFilter;
 import io.restassured.response.Response;
@@ -17,6 +18,7 @@ import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.testng.Assert;
 import org.testng.TestException;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Listeners;
 
 import java.io.IOException;
 import java.nio.file.Paths;
@@ -29,6 +31,7 @@ import static com.example.api_automation.utils.Constants.JSON_DIR;
 import static io.restassured.RestAssured.given;
 
 @SpringBootTest(classes = ApiAutomationApplication.class)
+@Listeners({AllureTestNg.class})
 public class BaseTest extends AbstractTestNGSpringContextTests {
 
     private final ObjectMapper mapper = new ObjectMapper().registerModule(new JavaTimeModule());
