@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       suiteFile:
-        description: 'Path to TestNG suite XML (e.g. regression.xml)'
+        description: 'Path to TestNG suite XML (e.g. src/test/resources/suite/regression.xml)'
         required: true
         default: 'src/test/resources/suite/regression.xml'
 
@@ -31,3 +31,8 @@ jobs:
       - name: Generate Allure Report
         run: ./gradlew allureReport
 
+      - name: Upload Allure Report
+        uses: ./.github/actions/upload-artifact
+        with:
+          name: allure-report
+          path: build/allure-report
